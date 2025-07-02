@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yearly Keyword Trends - France (YouTube)</title>
+  <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #fff;
+      color: #222;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .widgets-container > div {
+      margin-bottom: 30px;
+      max-width: 900px; /* limite la largeur */
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Yearly Keyword Trends - France (YouTube)</h1>
+  <div class="widgets-container">
+    <div id="RELATED_QUERIES_0"></div>
+    <div id="RELATED_QUERIES_1"></div>
+    <div id="RELATED_QUERIES_2"></div>
+    <div id="RELATED_QUERIES_3"></div>
+    <div id="RELATED_QUERIES_4"></div>
+    <div id="TIMESERIES"></div>
+  </div>
+
+  <script>
+    const config = {
+      comparisonItem: [
+        { keyword: "type beat", geo: "FR", time: "today 12-m" },
+        { keyword: "beat", geo: "FR", time: "today 12-m" },
+        { keyword: "rap", geo: "FR", time: "today 12-m" },
+        { keyword: "instru", geo: "FR", time: "today 12-m" },
+        { keyword: "instrumental", geo: "FR", time: "today 12-m" }
+      ],
+      category: 0,
+      property: "youtube"
+    };
+
+    const widgetSettings = {
+      exploreQuery: "date=today%2012-m&geo=FR&gprop=youtube&q=type%20beat,beat,rap,instru,instrumental&hl=fr",
+      guestPath: "https://trends.google.fr:443/trends/embed/"
+    };
+
+    // Related queries widgets (5)
+    for(let i=0; i<5; i++) {
+      trends.embed.renderExploreWidget(`RELATED_QUERIES_${i}`, config, widgetSettings);
+    }
+    // Time series widget
+    trends.embed.renderExploreWidget("TIMESERIES", config, widgetSettings);
+  </script>
+</body>
+</html>
