@@ -1,33 +1,72 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <title>Widget Google Trends</title>
+<meta charset="UTF-8" />
+<title>Monthly Keyword Trends - Dashboard</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #fff;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .widget-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 400px; /* Ajuster la hauteur selon le widget */
+  }
+</style>
 </head>
 <body>
-    <h1>Recherche Google Trends - Type Beat</h1>
 
-    <!-- Intégration du widget Google Trends -->
-    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js"></script>
-    <script type="text/javascript">
-        trends.embed.renderExploreWidget(
-            "RELATED_QUERIES_2",
-            {
-                "comparisonItem": [
-                    {"keyword":"type beat","geo":"FR","time":"today 1-m"},
-                    {"keyword":"beat","geo":"FR","time":"today 1-m"},
-                    {"keyword":"rap","geo":"FR","time":"today 1-m"},
-                    {"keyword":"remix","geo":"FR","time":"today 1-m"},
-                    {"keyword":"album","geo":"FR","time":"today 1-m"}
-                ],
-                "category":0,
-                "property":"youtube"
-            },
-            {
-                "exploreQuery":"date=today%201-m&geo=FR&gprop=youtube&q=type%20beat,beat,rap,remix,album&hl=fr",
-                "guestPath":"https://trends.google.fr:443/trends/embed/"
-            }
-        );
-    </script>
+<h1>Recherches Google Trends - Monthly Keywords</h1>
+
+<div class="grid-container">
+  <div class="widget-box" id="widget-0"></div>
+  <div class="widget-box" id="widget-1"></div>
+  <div class="widget-box" id="widget-2"></div>
+  <div class="widget-box" id="widget-3"></div>
+  <div class="widget-box" id="widget-4"></div>
+</div>
+
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js"></script>
+<script type="text/javascript">
+  const keywordsConfig = {
+    "comparisonItem": [
+      {"keyword":"type beat","geo":"FR","time":"today 1-m"},
+      {"keyword":"beat","geo":"FR","time":"today 1-m"},
+      {"keyword":"rap","geo":"FR","time":"today 1-m"},
+      {"keyword":"instru","geo":"FR","time":"today 1-m"},
+      {"keyword":"instrumental","geo":"FR","time":"today 1-m"}
+    ],
+    "category":0,
+    "property":"youtube"
+  };
+  const optionsConfig = {
+    "exploreQuery":"date=today%201-m&geo=FR&gprop=youtube&q=type%20beat,beat,rap,instru,instrumental&hl=fr",
+    "guestPath":"https://trends.google.fr:443/trends/embed/"
+  };
+
+  for(let i=0; i<5; i++) {
+    trends.embed.renderExploreWidget(
+      `RELATED_QUERIES_${i}`,
+      keywordsConfig,
+      optionsConfig,
+      document.getElementById(`widget-${i}`)
+    );
+  }
+</script>
+
 </body>
 </html>
