@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weekly Keyword Trends</title>
+  <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js"></script>
+</head>
+<body>
+  <h1>Weekly Keyword Trends - France (YouTube)</h1>
+  <div class="widgets-container">
+    <div class="widget" id="RELATED_QUERIES_0"></div>
+    <div class="widget" id="RELATED_QUERIES_1"></div>
+    <div class="widget" id="RELATED_QUERIES_2"></div>
+    <div class="widget" id="RELATED_QUERIES_3"></div>
+    <div class="widget" id="RELATED_QUERIES_4"></div>
+    <div class="widget" id="TIMESERIES"></div>
+  </div>
+
+  <script>
+    const config = {
+      comparisonItem: [
+        { keyword: "type beat", geo: "FR", time: "now 7-d" },
+        { keyword: "beat", geo: "FR", time: "now 7-d" },
+        { keyword: "rap", geo: "FR", time: "now 7-d" },
+        { keyword: "instru", geo: "FR", time: "now 7-d" },
+        { keyword: "instrumental", geo: "FR", time: "now 7-d" }
+      ],
+      category: 0,
+      property: "youtube"
+    };
+    const widgetSettings = {
+      exploreQuery: "date=now%207-d&geo=FR&gprop=youtube&q=type%20beat,beat,rap,instru,instrumental&hl=fr",
+      guestPath: "https://trends.google.fr:443/trends/embed/"
+    };
+
+    for(let i = 0; i < 5; i++) {
+      trends.embed.renderExploreWidget(`RELATED_QUERIES_${i}`, config, widgetSettings);
+    }
+    trends.embed.renderExploreWidget("TIMESERIES", config, widgetSettings);
+  </script>
+</body>
+</html>
