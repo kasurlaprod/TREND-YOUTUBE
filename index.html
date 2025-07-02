@@ -2,119 +2,44 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Trends FR - Type Beat</title>
-  <style>
-    body { font-family: sans-serif; margin: 0; padding: 20px; background: #fff; }
-    h1 { font-size: 24px; margin-bottom: 10px; }
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tab-button {
-      padding: 8px 16px;
-      cursor: pointer;
-      border: none;
-      background: #eee;
-    }
-    .tab-button.active { background: #ccc; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-  </style>
+  <title>Monthly Keyword Trends</title>
   <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js"></script>
 </head>
 <body>
-  <h1>Recherches YouTube - France (Type Beat)</h1>
-
-  <div class="tabs">
-    <button class="tab-button active" onclick="showTab('weekly')">Hebdo</button>
-    <button class="tab-button" onclick="showTab('monthly')">Mensuel</button>
-    <button class="tab-button" onclick="showTab('yearly')">Annuel</button>
-    <button class="tab-button" onclick="showTab('since2008')">Depuis 2008</button>
-  </div>
-
-  <div id="weekly" class="tab-content active">
-    <div id="WEEKLY_RELATED_0"></div>
-    <div id="WEEKLY_RELATED_1"></div>
-    <div id="WEEKLY_RELATED_2"></div>
-    <div id="WEEKLY_RELATED_3"></div>
-    <div id="WEEKLY_RELATED_4"></div>
-    <div id="WEEKLY_TIMESERIES"></div>
-  </div>
-
-  <div id="monthly" class="tab-content">
-    <div id="MONTHLY_RELATED_0"></div>
-    <div id="MONTHLY_RELATED_1"></div>
-    <div id="MONTHLY_RELATED_2"></div>
-    <div id="MONTHLY_RELATED_3"></div>
-    <div id="MONTHLY_RELATED_4"></div>
-    <div id="MONTHLY_TIMESERIES"></div>
-  </div>
-
-  <div id="yearly" class="tab-content">
-    <div id="YEARLY_RELATED_0"></div>
-    <div id="YEARLY_RELATED_1"></div>
-    <div id="YEARLY_RELATED_2"></div>
-    <div id="YEARLY_RELATED_3"></div>
-    <div id="YEARLY_RELATED_4"></div>
-    <div id="YEARLY_TIMESERIES"></div>
-  </div>
-
-  <div id="since2008" class="tab-content">
-    <div id="ALLTIME_RELATED_0"></div>
-    <div id="ALLTIME_RELATED_1"></div>
-    <div id="ALLTIME_RELATED_2"></div>
-    <div id="ALLTIME_RELATED_3"></div>
-    <div id="ALLTIME_RELATED_4"></div>
-    <div id="ALLTIME_TIMESERIES"></div>
+  <h1>Monthly Keyword Trends - France (YouTube)</h1>
+  <div class="widgets-container">
+    <div class="widget" id="RELATED_QUERIES_0"></div>
+    <div class="widget" id="RELATED_QUERIES_1"></div>
+    <div class="widget" id="RELATED_QUERIES_2"></div>
+    <div class="widget" id="RELATED_QUERIES_3"></div>
+    <div class="widget" id="RELATED_QUERIES_4"></div>
+    <div class="widget" id="TIMESERIES"></div>
   </div>
 
   <script>
-    function showTab(id) {
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
-      event.target.classList.add('active');
-    }
-
-    const keywords = [
-      { keyword: "type beat", geo: "FR" },
-      { keyword: "beat", geo: "FR" },
-      { keyword: "rap", geo: "FR" },
-      { keyword: "instru", geo: "FR" },
-      { keyword: "instrumental", geo: "FR" }
-    ];
-
-    const periods = {
-      WEEKLY: "today 7-d",
-      MONTHLY: "today 1-m",
-      YEARLY: "today 12-m",
-      ALLTIME: "2008-01-01 2025-07-02"
+    const config = {
+      comparisonItem: [
+        { keyword: "type beat", geo: "FR", time: "today 1-m" },
+        { keyword: "beat", geo: "FR", time: "today 1-m" },
+        { keyword: "rap", geo: "FR", time: "today 1-m" },
+        { keyword: "instru", geo: "FR", time: "today 1-m" },
+        { keyword: "instrumental", geo: "FR", time: "today 1-m" }
+      ],
+      category: 0,
+      property: "youtube"
+    };
+    const widgetSettings = {
+      exploreQuery: "date=today%201-m&geo=FR&gprop=youtube&q=type%20beat,beat,rap,instru,instrumental&hl=fr",
+      guestPath: "https://trends.google.fr:443/trends/embed/"
     };
 
-    const guestPath = "https://trends.google.fr:443/trends/embed/";
-    const exploreBase = "q=type%20beat,beat,rap,instru,instrumental&geo=FR&gprop=youtube&hl=fr";
-
-    for (const [prefix, time] of Object.entries(periods)) {
-      for (let i = 0; i < 5; i++) {
-        trends.embed.renderExploreWidget(`${prefix}_RELATED_${i}`, {
-          comparisonItem: keywords.map(k => ({ ...k, time })),
-          category: 0,
-          property: "youtube"
-        }, {
-          exploreQuery: `date=${encodeURIComponent(time)}&${exploreBase}`,
-          guestPath
-        });
-      }
-      trends.embed.renderExploreWidget(`${prefix}_TIMESERIES`, {
-        comparisonItem: keywords.map(k => ({ ...k, time })),
-        category: 0,
-        property: "youtube"
-      }, {
-        exploreQuery: `date=${encodeURIComponent(time)}&${exploreBase}`,
-        guestPath
-      });
+    // Rendu des widgets RELATED_QUERIES
+    for(let i=0; i<5; i++) {
+      trends.embed.renderExploreWidget(`RELATED_QUERIES_${i}`, config, widgetSettings);
     }
+
+    // Rendu du widget TIMESERIES
+    trends.embed.renderExploreWidget("TIMESERIES", config, widgetSettings);
   </script>
 </body>
 </html>
